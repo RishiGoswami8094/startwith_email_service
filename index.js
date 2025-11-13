@@ -42,6 +42,10 @@ app.post("/send/interview", async (req, res) => {
 
 app.listen(process.env.PORT, () => { logger.info(`Email queue API running on port ${process.env.PORT}`) });
 
+app.get("/", (req, res) => {
+    res.send("hello  emailservice startwith :)");
+});
+
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications["api-key"];
 apiKey.apiKey = process.env.BREVO_API_KEY;
