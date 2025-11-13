@@ -70,7 +70,7 @@ const worker = new Worker(
             await transactionalEmailApi.sendTransacEmail(sendSmtpEmail);
 
             // Report success back to backend
-            // console.log("backend url", process.env.BACKEND_URL)
+            console.log("backend url: ", `${process.env.BACKEND_URL}/email/status`)
             await fetch(`${process.env.BACKEND_URL}/email/status`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
