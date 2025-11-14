@@ -67,8 +67,13 @@ const worker = new Worker(
             sendSmtpEmail.subject = subject;
             sendSmtpEmail.htmlContent = html;
 
-            await transactionalEmailApi.sendTransacEmail(sendSmtpEmail);
+            const brevoRes = await transactionalEmailApi.sendTransacEmail(sendSmtpEmail);
+            logger.info("[BREVO RAW RESPONSE]", brevoRes);
 
+            if (!brevoRes || !brevoRes.messageId) {
+                logger.error("[BREVO FAILURE] Missing messageId, treating as failure", brevoRes);
+                throw new Error("Brevo returned no messageId");
+            };    
             // Report success back to backend
             console.log("backend url: ", `${process.env.BACKEND_URL}/email/status`)
             try {
