@@ -83,6 +83,7 @@ const worker = new Worker(
             });
             logger.info(`[SUCCESS] Email sent to ${to}`);
         } catch (err) {
+            console.log("[ERROR] ",err)
             logger.error(`[ERROR] Failed to send to ${to}: ${err.message}`);
 
             // Queue to failedEmails for retry or later processing
@@ -103,6 +104,8 @@ const worker = new Worker(
 
 // Worker error handler
 worker.on("failed", (job, err) => {
+    console.log("FAILED: ", job)
+    console.log("FAILED ERROR: ", err)
     logger.error(`[RETRY FAILED] Job ${job.id} (${job.name}) after ${job.attemptsMade} attempts: ${err.message}`);
 });
 
@@ -129,6 +132,7 @@ const failedWorker = new Worker(
 
 // Failed worker event handler
 failedWorker.on("completed", (job) => {
+    console.log("failed for: ", job)
     logger.info(`[DLQ] Reported failed email for owner ${job.data.ownerId}`);
 });
 
