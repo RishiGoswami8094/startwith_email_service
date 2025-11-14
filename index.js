@@ -71,6 +71,8 @@ const worker = new Worker(
 
             // Report success back to backend
             console.log("backend url: ", `${process.env.BACKEND_URL}/email/status`)
+            try {
+                
             await fetch(`${process.env.BACKEND_URL}/email/status`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -81,6 +83,11 @@ const worker = new Worker(
                     data: { emailStatus: "SUCCESS", message: "Email sent successfully" }
                 })
             });
+            }catch(err){
+                console.log("okok", err)
+            }
+
+            console.log
             logger.info(`[SUCCESS] Email sent to ${to}`);
         } catch (err) {
             console.log("[ERROR] ",err)
