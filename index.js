@@ -69,6 +69,7 @@ const worker = new Worker(
 
             const brevoRes = await transactionalEmailApi.sendTransacEmail(sendSmtpEmail);
             logger.info("[BREVO RAW RESPONSE]", brevoRes);
+            console.log("B:",brevoRes);
 
             if (!brevoRes || !brevoRes.messageId) {
                 logger.error("[BREVO FAILURE] Missing messageId, treating as failure", brevoRes);
