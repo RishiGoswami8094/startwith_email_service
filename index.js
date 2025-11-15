@@ -86,7 +86,7 @@ const worker = new Worker(
                     ownerId,
                     roomId,
                     interviewId,
-                    candidateId
+                    candidateId,
                     data: { emailStatus: "SUCCESS", message: "Email sent successfully" }
                 })
             });
@@ -105,6 +105,7 @@ const worker = new Worker(
                 ownerId,
                 roomId,
                 interviewId,
+                candidateId,
                 data: { emailStatus: "FAILED", message: err.message }
             });
         }
@@ -137,6 +138,7 @@ const failedWorker = new Worker(
                 ownerId,
                 roomId,
                 interviewId,
+                candidateId,
                 data
             })
         });
