@@ -54,7 +54,7 @@ const transactionalEmailApi = new SibApiV3Sdk.TransactionalEmailsApi();
 const worker = new Worker(
     "emails",
     async (job) => {
-        const { ownerId, roomId, interviewId, data } = job.data;
+        const { ownerId, roomId, interviewId, candidateId, data } = job.data;
         const { to, subject, html, senderName, senderEmail } = data;
 
         try {
