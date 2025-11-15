@@ -21,13 +21,13 @@ const failedQueue = new Queue("failedEmails", { connection });
 
 app.post("/send/interview", async (req, res) => {
     try {
-        const { ownerId, roomId, interviewId, data } = req.body;
+        const { ownerId, roomId, interviewId, candidateId, data } = req.body;
         if (!ownerId || !roomId || !interviewId || !data) {
             return res.status(400).json({ error: "Missing required fields" });
         }
         await emailQueue.add(
             "sendEmail",
-            { ownerId, roomId, interviewId, data },
+            { ownerId, roomId, interviewId,candidateId, data },
             {
                 attempts: 3,
                 backoff: { type: "fixed", delay: 2000 },
@@ -86,6 +86,7 @@ const worker = new Worker(
                     ownerId,
                     roomId,
                     interviewId,
+                    candidateId
                     data: { emailStatus: "SUCCESS", message: "Email sent successfully" }
                 })
             });
