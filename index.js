@@ -61,7 +61,7 @@ const worker = new Worker(
             const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
             sendSmtpEmail.sender = {
                 name: senderName || "StartWith Live",
-                email: senderEmail || "interview@startwith.live"
+                email: senderEmail || "interview@startwith.co"
             };
             sendSmtpEmail.to = [{ email: to }];
             sendSmtpEmail.subject = subject;
